@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Software Engineer
+role: Backend Developer
 
 # Organizations/Affiliations
 organizations:
