@@ -2,5 +2,4 @@
   {{ range .AlternativeOutputFormats - }}
   {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML  }}
   {{ end - }}
-  <a href="{{ .URL  }}" type="application/rss+xml" target="_blank">RSS</a></a>
 </head>
