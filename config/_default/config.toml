@@ -49,6 +49,10 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]
   section = [ "HTML", "RSS" ]
 
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+
 [mediaTypes."application/manifest+json"]
   suffixes = ["webmanifest"]
 
