@@ -155,7 +155,7 @@ final case class EmailFilter(matches: Email => Boolean)
 
 ```scala
 def subjectContains(phrase: String): EmailFilter =
-	EmailFilter(_.subject.contains(phrase))
+  EmailFilter(_.subject.contains(phrase))
 ```
 
 이 외에도 좀 더 현실적인 예시로 이메일 본문 내용에 관한 필터링, 수신자 리스트에 관한 필터링, 보낸 날짜로 필터링 등이 있을 것이다.
@@ -165,13 +165,13 @@ def subjectContains(phrase: String): EmailFilter =
 ```scala
 final case class EmailFilter(matches: Email => Boolean) { self =>
   def &&(that: EmailFilter): EmailFilter =
-  	EmailFilter(email => self.matches(email) && that.matches(email))
+    EmailFilter(email => self.matches(email) && that.matches(email))
   
   def ||(that: EmailFilter): EmailFilter =
-  	EmailFilter(email => self.matches(email) || that.matches(email))
+    EmailFilter(email => self.matches(email) || that.matches(email))
   
   def unary_!: EmailFilter =
-  	EmailFilter(email => !self.matches(email))
+    EmailFilter(email => !self.matches(email))
 }
 ```
 
@@ -179,8 +179,8 @@ final case class EmailFilter(matches: Email => Boolean) { self =>
 
 ```scala
 val filter =
-	(subjectContains("discount") || subjectContains("clearance"))
-	!subjectContains("liqudation"))
+  (subjectContains("discount") || subjectContains("clearance"))
+  !subjectContains("liqudation"))
 ```
 
 실행가능한 인코딩은 직설적이고 꽤 괜찮다. 이메일 필터를 직접적인 실행으로 표현하기 때문에 이메일 필터에 대해 잘 모르거나 함수형 디자인에 익숙하지 않아도 쉽게 이해할 수 있다. 
@@ -193,7 +193,7 @@ val filter =
 
 ```scala
 sealed trait EmailFilter { self => 
-	def &&(that: EmailFilter): EmailFilter = And(self, that)
+  def &&(that: EmailFilter): EmailFilter = And(self, that)
   
   def ||(that: EmailFilter): EmailFilter = Or(self, that)
   
@@ -213,8 +213,8 @@ def subjectContains(phrase: String): EmailFilter = SumbjectContains(phrase)
 
 ```scala
 And(
-	Or(SubjectContains("discount"), SubjectContains("clearance"))
-	Not(SubjectContains("liquidation"))
+  Or(SubjectContains("discount"), SubjectContains("clearance"))
+  Not(SubjectContains("liquidation"))
 )
 ```
 
@@ -226,7 +226,7 @@ And(
 
 ```scala
 def matches(filter: EmailFilter, email: Email): Boolean = 
-	filter match {
+  filter match {
     case And(l, r) => matches(l, email) && matches(r, email)
     case Or(l, r) => matches(l, email) || matches(r, email)
     case Not(v) => !matches(v, email)
@@ -251,22 +251,22 @@ def matches(filter: EmailFilter, email: Email): Boolean =
 ```scala
 final case class EmailFilter(matches: Email => Boolean, describe: () => String) { 
   self => 
-  	def &&(that: EmailFilter): EmailFilter =
-  		EmailFilter(
-      	email => self.matches(email) && that.matches(email),
-      	() => s"(${self.describe()} && ${that.describe()})")
-  	
-  	def ||(that: EmailFilter): EmailFilter =
-  		EmailFilter(
-      	email => self.matches(email) || that.matches(email),
-      	() => s"(${self.describe()} || ${that.describe()})")
-  	
-  	def unary_!: EmailFilter =
-  		EmailFilter(email => !self.matches(email),
+    def &&(that: EmailFilter): EmailFilter =
+      EmailFilter(
+        email => self.matches(email) && that.matches(email),
+        () => s"(${self.describe()} && ${that.describe()})")
+    
+    def ||(that: EmailFilter): EmailFilter =
+      EmailFilter(
+        email => self.matches(email) || that.matches(email),
+        () => s"(${self.describe()} || ${that.describe()})")
+    
+    def unary_!: EmailFilter =
+      EmailFilter(email => !self.matches(email),
         () => s"!${self.describe()}")
 }
 def subjectContains(phrase: String): EmailFilter =
-	EmailFilter(_.subject.contains(phrase), () => s"(subject contains ${phrase})")
+  EmailFilter(_.subject.contains(phrase), () => s"(subject contains ${phrase})")
 ```
 
 > 원문에서는 that.describe에 ()를 붙이지 않아 lazy value인 상태였는데 개인적으로 오타라고 판단해 수정하였습니다. 
@@ -279,7 +279,7 @@ def subjectContains(phrase: String): EmailFilter =
 
 ```scala
 def describe(filter: EmailFilter): String =
-	filter match {
+  filter match {
     case And(l, r) => s"(${describe(l)} && ${describe(r)})"
     case Or(l, r) => s"(${describe(l)} || ${describe(r)})"
     case Not(v) => s"!${describe(v)}"
