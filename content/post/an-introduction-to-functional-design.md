@@ -90,13 +90,13 @@ projects: []
 
 생성자는 해법=>매우 간단한문제 모델을 생성한다. 예를 들어 우리가 매 주 목요일마다 반복되는 스케줄을 기술한다고 할 때 다음과 같이 `Schedule.dayOfWeek` 생성자를 사용할 수 있다. 
 
-```Scala
+```scala
 val onThursday = Schedule.dayOfWeek(DayOfWeek.THURSDAY)
 ```
 
 유사한 방법으로 오전 6시, 낮 12시에 반복되는 스케줄을 기술할 때는 `Schedule.hourOfDay` 생성자를 사용한다.
 
-```Scala
+```scala
 val sixAndTwelve = Schedule.hourOfDay(6, 12)
 ```
 
@@ -104,13 +104,13 @@ val sixAndTwelve = Schedule.hourOfDay(6, 12)
 
 예를 들어 우리가 목요일 오전 6시, 낮 12시에 반복되는 스케줄을 만든다고 할 때 우리는 `&&` (intersection) 연산자를 이용해 위에서 정의한 2개의 스케줄을 합성할 수 있다.
 
-```Scala
+```scala
 val thursdaySixAndTwelve = onThursday && sixAndTwelve
 ```
 
 유사한 방법으로 이 스케줄을 수정하여 일정한 아웃풋을 발생시키고 싶다면 (예를 들어 유닛 값인`()`), `map` 을 이용하여 변환된 아웃풋을 발생시키는 새로운 스케줄을 만들 수 있다.
 
-```Scala
+```scala
 val finalSchedule = thursdaySixAndTwelve.map(_ => ())
 ```
 
@@ -145,7 +145,7 @@ val finalSchedule = thursdaySixAndTwelve.map(_ => ())
 
 이 케이스에서 우리는 이메일 필터를 실행시키기 위해 이메일에 적용시켜서 필터가 이메일을 판별하는지 확인해볼 것이다. 따라서 `EmailFilter` 의 실행가능한 인코딩을 만들기 위해 우리는 이메일을 받아서 참, 거짓을 반환하는 함수를 가진 `case class` 정의한다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean)
 ```
 
@@ -153,7 +153,7 @@ final case class EmailFilter(matches: Email => Boolean)
 
 이제 기존 생성자를 발전시켜서 이메일이 특정 문구를 포함하고 있는지 판별할 수 있는 해법=>문제 모델을 만들어 보았다.
 
-```Scala
+```scala
 def subjectContains(phrase: String): EmailFilter =
 	EmailFilter(_.subject.contains(phrase))
 ```
@@ -162,7 +162,7 @@ def subjectContains(phrase: String): EmailFilter =
 
 생성자들은 간단한 문제만 해결할 수 있다. 따라서 더 복잡한 문제를 풀기 위해서는 기존 모델을 변환, 합성할 수 있는 연산자가 필요하다. 그러므로 이러한 메소드들을 `EmailFilter` 클래스 내부에 넣어보겠다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean) { self =>
   def &&(that: EmailFilter): EmailFilter =
   	EmailFilter(email => self.matches(email) && that.matches(email))
@@ -177,7 +177,7 @@ final case class EmailFilter(matches: Email => Boolean) { self =>
 
 위의 단항 연산자와 이항 연산자들만으로도 꽤나 재미있는 이메일 필터링 문제들을 해결할 수 있다. 예를 들어 다음 예시 "discount", "clearance"를 포함하고 "liquidation"을 포함하지 않는 이메일을 판별하는 필터이다.
 
-```Scala
+```scala
 val filter =
 	(subjectContains("discount") || subjectContains("clearance"))
 	!subjectContains("liqudation"))
@@ -191,7 +191,7 @@ val filter =
 
 이전에 보았던 실행가능한 인코딩에서 사용한 기능들을 똑같이 구현해보자. 이를 위해서는 `sealed trait` 에 4개의 서브타입이 필요하다. 하나는 생성자, 하나는 단항 연산자, 둘은 이항 연산자이다. 
 
-```Scala
+```scala
 sealed trait EmailFilter { self => 
 	def &&(that: EmailFilter): EmailFilter = And(self, that)
   
@@ -211,7 +211,7 @@ def subjectContains(phrase: String): EmailFilter = SumbjectContains(phrase)
 
 실행가능한 인코딩 예시의 `filter` 를 똑같이 선언적 인코딩 형태로 나타내본다면 다음과 같을 것이다.
 
-```Scala
+```scala
 And(
 	Or(SubjectContains("discount"), SubjectContains("clearance"))
 	Not(SubjectContains("liquidation"))
@@ -224,7 +224,7 @@ And(
 
 다음의 실행기는 모델을 하나 받아서 필터가 이메일을 잘 판별하는지 테스트한다.
 
-```Scala
+```scala
 def matches(filter: EmailFilter, email: Email): Boolean = 
 	filter match {
     case And(l, r) => matches(l, email) && matches(r, email)
@@ -248,7 +248,7 @@ def matches(filter: EmailFilter, email: Email): Boolean =
 
 실행가능한 인코딩에서는 간단하게 `case class` 내부에 간단한 `() => string` 타입의 함수를 넣으면 된다. 두 번째 인자인 이 실행기는 이메일 필터를 표현한 문자열을 생성한다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean, describe: () => String) { 
   self => 
   	def &&(that: EmailFilter): EmailFilter =
@@ -277,7 +277,7 @@ def subjectContains(phrase: String): EmailFilter =
 
 선언적 인코딩의 경우 모델은 순수한 데이터이기 때문에 새로운 인터프리터가 필요하다면 그 역할을 하는 함수를 추가하면 된다. 
 
-```Scala
+```scala
 def describe(filter: EmailFilter): String =
 	filter match {
     case And(l, r) => s"(${describe(l)} && ${describe(r)})"
