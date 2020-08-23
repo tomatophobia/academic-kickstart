@@ -90,13 +90,13 @@ projects: []
 
 생성자는 해법=>매우 간단한문제 모델을 생성한다. 예를 들어 우리가 매 주 목요일마다 반복되는 스케줄을 기술한다고 할 때 다음과 같이 `Schedule.dayOfWeek` 생성자를 사용할 수 있다. 
 
-```Scala
+```scala
 val onThursday = Schedule.dayOfWeek(DayOfWeek.THURSDAY)
 ```
 
 유사한 방법으로 오전 6시, 낮 12시에 반복되는 스케줄을 기술할 때는 `Schedule.hourOfDay` 생성자를 사용한다.
 
-```Scala
+```scala
 val sixAndTwelve = Schedule.hourOfDay(6, 12)
 ```
 
@@ -104,13 +104,13 @@ val sixAndTwelve = Schedule.hourOfDay(6, 12)
 
 예를 들어 우리가 목요일 오전 6시, 낮 12시에 반복되는 스케줄을 만든다고 할 때 우리는 `&&` (intersection) 연산자를 이용해 위에서 정의한 2개의 스케줄을 합성할 수 있다.
 
-```Scala
+```scala
 val thursdaySixAndTwelve = onThursday && sixAndTwelve
 ```
 
 유사한 방법으로 이 스케줄을 수정하여 일정한 아웃풋을 발생시키고 싶다면 (예를 들어 유닛 값인`()`), `map` 을 이용하여 변환된 아웃풋을 발생시키는 새로운 스케줄을 만들 수 있다.
 
-```Scala
+```scala
 val finalSchedule = thursdaySixAndTwelve.map(_ => ())
 ```
 
@@ -145,7 +145,7 @@ val finalSchedule = thursdaySixAndTwelve.map(_ => ())
 
 이 케이스에서 우리는 이메일 필터를 실행시키기 위해 이메일에 적용시켜서 필터가 이메일을 판별하는지 확인해볼 것이다. 따라서 `EmailFilter` 의 실행가능한 인코딩을 만들기 위해 우리는 이메일을 받아서 참, 거짓을 반환하는 함수를 가진 `case class` 정의한다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean)
 ```
 
@@ -153,7 +153,7 @@ final case class EmailFilter(matches: Email => Boolean)
 
 이제 기존 생성자를 발전시켜서 이메일이 특정 문구를 포함하고 있는지 판별할 수 있는 해법=>문제 모델을 만들어 보았다.
 
-```Scala
+```scala
 def subjectContains(phrase: String): EmailFilter =
 	EmailFilter(_.subject.contains(phrase))
 ```
@@ -162,7 +162,7 @@ def subjectContains(phrase: String): EmailFilter =
 
 생성자들은 간단한 문제만 해결할 수 있다. 따라서 더 복잡한 문제를 풀기 위해서는 기존 모델을 변환, 합성할 수 있는 연산자가 필요하다. 그러므로 이러한 메소드들을 `EmailFilter` 클래스 내부에 넣어보겠다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean) { self =>
   def &&(that: EmailFilter): EmailFilter =
   	EmailFilter(email => self.matches(email) && that.matches(email))
@@ -177,7 +177,7 @@ final case class EmailFilter(matches: Email => Boolean) { self =>
 
 위의 단항 연산자와 이항 연산자들만으로도 꽤나 재미있는 이메일 필터링 문제들을 해결할 수 있다. 예를 들어 다음 예시 "discount", "clearance"를 포함하고 "liquidation"을 포함하지 않는 이메일을 판별하는 필터이다.
 
-```Scala
+```scala
 val filter =
 	(subjectContains("discount") || subjectContains("clearance"))
 	!subjectContains("liqudation"))
@@ -191,7 +191,7 @@ val filter =
 
 이전에 보았던 실행가능한 인코딩에서 사용한 기능들을 똑같이 구현해보자. 이를 위해서는 `sealed trait` 에 4개의 서브타입이 필요하다. 하나는 생성자, 하나는 단항 연산자, 둘은 이항 연산자이다. 
 
-```Scala
+```scala
 sealed trait EmailFilter { self => 
 	def &&(that: EmailFilter): EmailFilter = And(self, that)
   
@@ -211,7 +211,7 @@ def subjectContains(phrase: String): EmailFilter = SumbjectContains(phrase)
 
 실행가능한 인코딩 예시의 `filter` 를 똑같이 선언적 인코딩 형태로 나타내본다면 다음과 같을 것이다.
 
-```Scala
+```scala
 And(
 	Or(SubjectContains("discount"), SubjectContains("clearance"))
 	Not(SubjectContains("liquidation"))
@@ -224,7 +224,7 @@ And(
 
 다음의 실행기는 모델을 하나 받아서 필터가 이메일을 잘 판별하는지 테스트한다.
 
-```Scala
+```scala
 def matches(filter: EmailFilter, email: Email): Boolean = 
 	filter match {
     case And(l, r) => matches(l, email) && matches(r, email)
@@ -248,7 +248,7 @@ def matches(filter: EmailFilter, email: Email): Boolean =
 
 실행가능한 인코딩에서는 간단하게 `case class` 내부에 간단한 `() => string` 타입의 함수를 넣으면 된다. 두 번째 인자인 이 실행기는 이메일 필터를 표현한 문자열을 생성한다.
 
-```Scala
+```scala
 final case class EmailFilter(matches: Email => Boolean, describe: () => String) { 
   self => 
   	def &&(that: EmailFilter): EmailFilter =
@@ -277,7 +277,7 @@ def subjectContains(phrase: String): EmailFilter =
 
 선언적 인코딩의 경우 모델은 순수한 데이터이기 때문에 새로운 인터프리터가 필요하다면 그 역할을 하는 함수를 추가하면 된다. 
 
-```Scala
+```scala
 def describe(filter: EmailFilter): String =
 	filter match {
     case And(l, r) => s"(${describe(l)} && ${describe(r)})"
@@ -290,4 +290,37 @@ def describe(filter: EmailFilter): String =
 따라서 선언적 인코딩에서는 모델을 실행하는 새로운 실행기를 추가하는 것이 비교적 쉽다는 장점이 있다.
 
 ### Encoding Tradeoffs
+
+실행가능한 인코딩과 선언적 인코딩은 서로 *반대되는* 장점과 단점을 가지고 있다.
+
+실행가능한 인코딩에서는 기존 코드를 수정하지 않고 새로운 생성자와 연산자를 추가하는 것이 자유롭다. 하지만 새로운 인터프리터를 추가하기 위해서는 기존의 모든 생성자와 연산자를 수정해야 한다.
+
+선언적 인코딩에서는 새로운 인터프리터를 추가할 때 기존 코드를 수정할 필요가 없다. 그러나 새로운 (기본) 연산자와 생성자를 추가하기 위해서는 기존의 모든 인터프리터를 수정해야 한다.
+
+> [Expression problem](https://en.wikipedia.org/wiki/Expression_problem)을 참고하면 좋을 것 같습니다.
+
+함수형 프로그래밍에서는 실행가능한 인코딩과 선언적 인코딩이 서로 "짝 (duals)"을 이룬다. 이 둘은 서로 거울을 마주보듯 닮아있지만 반대편에 서있다. 두 인코딩에서 모두 새로운 생성자와 연산자를 추가하거나 새로운 인터프리터를 추가할 수 있다.
+
+선언적 인코딩의 경우 순수한 데이터이기 때문에 실행가능한 인코딩에 비해 최적화하기 용이하다. 따라서 퍼포먼스가 중요한 상황에서 선언적 인코딩은 비교적 우위를 가지고 있다. 추가적으로 모델을 영속적으로 (persistence) 관리하는 경우 선언적 인코딩이 적합하다. 순수한 데이터이기 때문에 관계형 데이터베이스나 그 외 영속 계층에서 직접적으로 저장과 조회를 할 수 있다.
+
+한편 실행가능한 인코딩의 경우 기존에 존재하는 (순수하지 않은) 인터페이스와 클래스들을 매끄럽게 재사용할 수 있기 때문에 주로 레거시 코드가 있는 상황에 적합하다. 예를 들어 기존 코드가 `InputStream` 을 많이 사용하는 경우 우리는 간단하게 함수형 스트림을 다음과 같이 쓸 수 있다.
+```scala
+final case class Stream(create: () => InputStream)
+```
+
+프로그램에서 선언적인 형식을 유지함으로써 위 데이터 타입은 기존 코드와의 연계를 쉽게 유지하면서도 많은 생성자와 연산자를 가질 수 있다. (이 때 리소스 핸들링과 중간(intermediate) 인풋 스트림을 위한 에러 확산을 신경쓸 필요 없다.)
+
+## Where From Here
+
+함수형 디자인은 함수형 프로그래밍을 실용적으로 사용할 수 있는 매우 강력한 도구이다. 함수형 디자인을 통해 현실에서 만날 수 있는 문제들을 쉽게 테스트할 수 있고 간단하게 유지보수하면서 재미있게 풀어나갈 수 있다.
+
+물론 이 글에서 이야기한 내용은 기초일 뿐, 이 너머에는 어떻게 함수형 도메인을 타입 안전하게 만들지 (제네릭, 팬텀 타입, 타입 레벨 프로그래밍을 사용), 어떻게 직교성(orthogonality), 표현력(expressivity), 조합성(composablity)의 원리를 사용하면서 좋은 생성자와 연산자를 설계하는지, 변환과 합성을 하는 일반적인 패턴, 비즈니스 어플리케이션 내부에서 함수형 도메인을 정의하는 것 등 다양한 이야기들이 있다.
+
+이 글이 재미있고 더 배우고 싶다면 [내 Github](https://github.com/jdegoes/functional-design) 또는 [Ziverge](https://ziverge.com/) 워크샵 또는 [Patreon](https://patreon.com/jdegoes) 의 스파르탄 티어에 가입하기 바란다. 또한 이 글에 주제와 관련해서 [the expression problem](https://en.wikipedia.org/wiki/Expression_problem), [object algebras](https://www.cs.utexas.edu/~wcook/Drafts/2012/ecoop2012.pdf), [tagless-final style](http://okmij.org/ftp/tagless-final/index.html) 등이  두 가지 다른 인코딩의 상충 관계에 대한 더 많은 배경 지식을 제공해줄 것이다.
+
+
+
+## 끝
+
+함수형 디자인에 대한 좋은 글을 추천받아서 공부하는 겸 번역해보았습니다. 항상 다른 프로그래밍 번역 서적을 읽을 때는 더 잘 번역할 수 있을 것 같았는데 제가 직접 해보니 쉬운 일이 아닌네요. 어색하거나 이상한 번역이나 이해가 안되는 점들은 댓글이나 이메일 주시면 정말 감사드리겠습니다.    :)
 
