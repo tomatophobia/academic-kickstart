@@ -46,3 +46,11 @@ projects: []
 
 JVM 에코시스템은 매우 거대해서 프로그래머가 원하는 거의 모든 라이브러리를 찾을 수 있다. 하지만 그 중 대부분은 심지어 스칼라를 포함해서도 위에서 언급한 원칙을 지키지 않는다. 당신 또한 함수형이 아닌 레거시 코드를 가지고 있을 수 있다. 늦든 빠르든 이런 비함수형 코드들을 처리해야 할 때가 올 것이다. 이 글을 통해 나는 다양한 순수하지 않은 코드들을 어떻게 ZIO 라이브러리를 이용해 처리하는지 이야기할 것이다. 
 
+앞으로 나올 예시들은 다양한 스칼라 또는 자바 코드에 종속성을 가진 실제 라이브러리 코드들을 (`zio-sqs`, `zio-akka-cluster`) 통해 설명한다. 따라서 이 글에서는 당신이 ZIO에 대해 배경지식이 있다고 가정하고 설명한다. 만약 ZIO를 처음 접한다면 [공식 문서](https://zio.dev/) 또는 [리소스](https://zio.dev/docs/resources/resources)들이 도움이 될 것 이다. 
+
+![Image for post](https://miro.medium.com/max/600/1*lM5WtEonS2vERGNJUpYlqg.jpeg)
+
+{{< figure src="https://miro.medium.com/max/600/1*lM5WtEonS2vERGNJUpYlqg.jpeg" caption="A unicorn --- **green** unicorn!" >}}
+
+
+
