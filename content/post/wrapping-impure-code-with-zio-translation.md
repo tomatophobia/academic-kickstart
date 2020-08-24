@@ -48,9 +48,51 @@ JVM 에코시스템은 매우 거대해서 프로그래머가 원하는 거의 �
 
 앞으로 나올 예시들은 다양한 스칼라 또는 자바 코드에 종속성을 가진 실제 라이브러리 코드들을 (`zio-sqs`, `zio-akka-cluster`) 통해 설명한다. 따라서 이 글에서는 당신이 ZIO에 대해 배경지식이 있다고 가정하고 설명한다. 만약 ZIO를 처음 접한다면 [공식 문서](https://zio.dev/) 또는 [리소스](https://zio.dev/docs/resources/resources)들이 도움이 될 것 이다. 
 
-![Image for post](https://miro.medium.com/max/600/1*lM5WtEonS2vERGNJUpYlqg.jpeg)
+{{< figure src="https://miro.medium.com/max/600/1*lM5WtEonS2vERGNJUpYlqg.jpeg" caption="Scala Developer discovering ZIO" >}}
 
-{{< figure src="https://miro.medium.com/max/600/1*lM5WtEonS2vERGNJUpYlqg.jpeg" caption="A unicorn --- **green** unicorn!" >}}
+## The One that throws
 
+먼저 쉬운 예시부터 시작해보자. 우리가 에러가 발생할 수 있는 스칼라 또는 자바 레거시 코드를 호출한다고 하자. 어쩌면 주석을 통해 코드를 파악할 수도 있지만 운이 나쁘다면 이 코드가 에러를 발생시킬지 아닐지조차 알 수 없을 것이다. 이 때, 예외를 발생시키는 것은 총체성에 위배되는 행위이다. 왜냐하면 함수가 모든 가능한 입력에 대해 항상 반환 값이 존재하지 않기 때문이다.
 
+만약 우리가 ZIO의 `IO.succeed` 또는 `map/flatMap` 을 사용하는 경우 에러가 발생하면 [파이버(fiber)](https://en.wikipedia.org/wiki/Fiber_(computer_science))가 중단되기 때문에 에러를 발생시켜서는 안된다. 대신 우리는 `IO.effect` 를 사용해야 한다. `IO.effect` 는 효과(effect) 생성자로써 예외를 잡아서 `IO[Throwable, A]`(aka `Task`) 타입으로 반환한다. 이 방법을 이용하면 `mapError`, `catchAll` 등을 사용하여 에러를 처리할 수 있다.
+
+Note: `Task.apply` 를 사용하여 똑같은 처리를 할 수 있다.
+
+```scala
+// Wrapping Java NIO file copy
+import java.nio.file.{ Files, Paths }
+import zio.IO
+
+def copyFile(path: String, destination: String): IO[Throwable, Unit] = IO.effect {
+  Files.copy(Paths.get(path), Paths.get(destination))
+}
+```
+
+위 방법은 레거시 코드가 에러를 발생시키는지 애매할 때 사용하기 좋은 방법이다. (물론 확실히 에러를 발생시킬 때도 좋다.) 이 경우 부분 코드를 효과(effect)로 바꾸면서 명시적으로 에러가 발생할 수 있음을 나타낸다.
+
+## The One that blocks
+
+이번에는 레거시 코드가 에러를 발생시킬 뿐만 아니라 실행이 완료될 때까지 현재 쓰레드를 블락하는 경우를 생각해보자. 만약 프로그래머가 위의 상황에서 일반적인 `IO` 를 사용한다면 어플리케이션의 메인 쓰레드 풀에 속하는 쓰레드를 블락할 것이고 이는 쓰레드 [기아 상태](https://en.wikipedia.org/wiki/Starvation_(computer_science))를 초래할 것이다. 이런 경우에는 어플리케이션의 메인 쓰레드 풀에서 실행하는 것 보다 블락을 필요로 하는 태스크들만을 위한(dedicated) 쓰레드 풀 내부에서 실행하는 것이 더 좋다.
+
+물론 ZIO에는 이를 위한 해답이 있다. 바로 `effectBlocking`으로 코드를 감싸는 것이다. `effectBlocking`은 해당 코드만을 위한 (dedicated) 쓰레드 풀에서 코드를 실행시키는 것을 보장한다. 반환하는 타입은 ZIO[Blocking, Throwable, A] 이다. 우리는 반환 타입을 통해 "블라킹 환경(= 사용할 쓰레드 풀)"과 에러가 발생할 수 있음을 알 수 있다. 블라킹 환경을 만드는 방법을 몰라도 걱정할 필요없다. 실행할 메인 함수에서  [`zio.App`](https://zio.dev/docs/overview/overview_running_effects#app) 을 사용하면 알맞은 기본 환경이 제공된다.
+
+```scala
+import scala.io.{ Codec, Source }
+import zio.{ App, console, ZIO }
+import zio.blocking._
+
+object SampleApp extends App {
+
+  def getResource(path: String): ZIO[Blocking, Throwable, String] = effectBlocking {
+    Source.fromResource(path)(Codec.UTF8).getLines.mkString
+  }
+
+  override def run(args: List[String]): ZIO[Environment, Nothing, Int] =
+    getResource("test.txt").foldM(ex => console.putStrLn(ex.toString).const(-1), res => console.putStrLn(res).const(0))
+}
+```
+
+참고로 `Thread.sleep` 대신 블라킹이 없는 (non-blocking) `IO.sleep`을 사용하라.
+
+## The One that calls back
 
