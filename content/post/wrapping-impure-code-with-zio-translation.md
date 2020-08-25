@@ -96,3 +96,24 @@ object SampleApp extends App {
 
 ## The One that calls back
 
+최근 자바 라이브러리들은 블라킹대신 콜백을 사용하는 사례가 늘고 있다. 예를 들면, AWS SDK for Java 2.0 업데이트에서는 블라킹 함수를 `CompletableFuture`로 대체하였다. `CompletableFuture`는 `handle` 메소드를 통해 API 호출의 반환에 맞춰서 콜백을 실행한다. 
+
+이러한 함수들을 처리하기 위해 ZIO의 `effectAsync`를 사용할 수 있다. `effectAsync`는 콜백 신호가 발생했을 때 (triggered) 호출할 수 있는 함수를 제공한다. 이 함수를 통해 효과(effect)를 완료시키고 결과 값 또는 실패를 반환한다.
+
+다음 코드에서 `effectAsync`는 `CompletableFutre`로 부터 콜백 신호가 발생했을 때 (triggered) 호출할 수 있는함수인 `cb`를 제공한다. `cb` 는 효과(effect)를 인자로 받을 수 있기 때문에 에러가 발생했을 땐ㄴ `IO.fail`을 넘겨주고 성공한 경우에는 `IO.succeed`를 넘겨준다. (코드에서는 `IO.unit`을 사용하였다. 이는 `IO.succeed(())`와 동일하다.)
+
+```scala
+def send(client: SqsAsyncClient, queueUrl: String, msg: String): Task[Unit] =
+  IO.effectAsync[Any, Throwable, Unit] { cb =>
+    client
+      .sendMessage(SendMessageRequest.builder.queueUrl(queueUrl).messageBody(msg).build)
+      .handle[Unit]((_, err) => {
+        err match {
+          case null => cb(IO.unit)
+          case ex   => cb(IO.fail(ex))
+        }
+      })
+    ()
+  }
+```
+
