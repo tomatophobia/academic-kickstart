@@ -74,7 +74,7 @@ def copyFile(path: String, destination: String): IO[Throwable, Unit] = IO.effect
 
 이번에는 레거시 코드가 에러를 발생시킬 뿐만 아니라 실행이 완료될 때까지 현재 쓰레드를 블락하는 경우를 생각해보자. 만약 프로그래머가 위의 상황에서 일반적인 `IO` 를 사용한다면 어플리케이션의 메인 쓰레드 풀에 속하는 쓰레드를 블락할 것이고 이는 쓰레드 [기아 상태](https://en.wikipedia.org/wiki/Starvation_(computer_science))를 초래할 것이다. 이런 경우에는 어플리케이션의 메인 쓰레드 풀에서 실행하는 것 보다 블락을 필요로 하는 태스크들만을 위한(dedicated) 쓰레드 풀 내부에서 실행하는 것이 더 좋다.
 
-물론 ZIO에는 이를 위한 해답이 있다. 바로 `effectBlocking`으로 코드를 감싸는 것이다. `effectBlocking`은 해당 코드만을 위한 (dedicated) 쓰레드 풀에서 코드를 실행시키는 것을 보장한다. 반환하는 타입은 ZIO[Blocking, Throwable, A] 이다. 우리는 반환 타입을 통해 "블라킹 환경(= 사용할 쓰레드 풀)"과 에러가 발생할 수 있음을 알 수 있다. 블라킹 환경을 만드는 방법을 몰라도 걱정할 필요없다. 실행할 메인 함수에서  [`zio.App`](https://zio.dev/docs/overview/overview_running_effects#app) 을 사용하면 알맞은 기본 환경이 제공된다.
+물론 ZIO에는 이를 위한 해답이 있다. 바로 `effectBlocking`으로 코드를 감싸는 것이다. `effectBlocking`은 해당 코드만을 위한 (dedicated) 쓰레드 풀에서 코드를 실행시키는 것을 보장한다. 반환하는 타입은 ZIO[Blocking, Throwable, A] 이다. 우리는 반환 타입을 통해 "블라킹 환경(= 사용할 쓰레드 풀)" 을 필요로 하면서 에러가 발생할 수 있음을 알 수 있다. 블라킹 환경을 만드는 방법을 몰라도 걱정할 필요없다. 실행할 메인 함수에서  [`zio.App`](https://zio.dev/docs/overview/overview_running_effects#app) 을 사용하면 알맞은 기본 환경이 제공된다.
 
 ```scala
 import scala.io.{ Codec, Source }
@@ -121,7 +121,7 @@ def send(client: SqsAsyncClient, queueUrl: String, msg: String): Task[Unit] =
 
 ## The One living in the Future
 
-우리는 `effectAsync`를 스칼라의 `Future`가 사용되는 곳에서도 사용할 수 있지만 `IO.fromFuture`라는 더 간단한 방법이 있다. `IO.fromFuture`로 감싼 코드에는 암시적으로(implicit) `ExecutionContext`가 제공되어 `Future`를 생성하는데 사용하는 것을 포함하여 상황에 맞게 사용할 수 있다.
+우리는 `effectAsync`를 스칼라의 `Future`가 사용되는 곳에서도 사용할 수 있지만 `IO.fromFuture`라는 더 간단한 방법이 있다. `IO.fromFuture`로 감싼 코드에는 암시적으로(implicit) `ExecutionContext`가 제공되어 `Future`를 생성하는데 사용하는 거나 그 외 상황에 맞게 사용할 수 있다.
 
 다음 예시는 Akka의 `ask` 메소드 (`?`로 사용)를 `IO.fromFuture`로 감싸서 사용하는 방법을 보여준다. 결과 효과(effect)는 `Future`가 완료될 때 반환되지만 `Await.result`를 사용할 때 처럼 사용 중인 쓰레드를 블락시키지 않는다. `IO.fromFuture`의 반환 타입은 성공하거나 예외 발생으로 실패할 수 있음을 나타내는 `Task`이다. 
 
