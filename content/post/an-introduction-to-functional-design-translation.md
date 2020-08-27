@@ -323,6 +323,3 @@ final case class Stream(create: () => InputStream)
 ## 끝
 
 함수형 디자인에 대한 좋은 글을 추천받아서 공부하는 겸 번역해보았습니다. 항상 다른 프로그래밍 번역 서적을 읽을 때는 더 잘 번역할 수 있을 것 같았는데 제가 직접 해보니 쉬운 일이 아니더군요. 어색하거나 이상한 번역 또는 이해가 안되는 점들은 댓글이나 이메일 주시면 정말 감사드리겠습니다.    :)
-  filter match {
-    case And(l, r) => s"(${describe(l)} && ${describe(r)})"
-
