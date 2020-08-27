@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Wrapping impure code with ZIO [번역]"
+title: "ZIO를 통한 부수효과가 있는 코드 관리 [번역]"
 subtitle: ""
 summary: ""
 authors: []
