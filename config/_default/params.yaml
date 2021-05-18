@@ -129,7 +129,7 @@ comments:
     publication: true
     event: true
   disqus:
-    shortname: ''
+    shortname: 'easywritten'
     show_count: true
   commento:
     url: ''
