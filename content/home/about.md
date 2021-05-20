@@ -12,7 +12,7 @@ headless: true
 # Order that this section appears on the page.
 weight: 30
 
-title: Biography
+title: 소개
 
 # Choose the user profile to display
 # This should be the username (folder name) of a profile in your `content/authors/` folder.
