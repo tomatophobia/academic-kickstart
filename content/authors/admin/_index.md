@@ -19,6 +19,8 @@ bio: Love FP
 # Interests to show in About widget
 interests:
 - Functional Programming
+- Domain Driven Design
+- Test Driven Design
 - Investment
 
 # Education to show in About widget
@@ -63,6 +65,4 @@ email: ""
 highlight_name: false
 ---
 
-함수형 프로그래밍을 좋아하는, 그 중 스칼라를 좋아하는, DDD에 관심있는, TDD에도 관심있는, 투자를 잘 하고 싶은 프로그래머입니다.
-
-# {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+함수형 프로그래밍을 좋아하는, 그 중 스칼라를 좋아하는, DDD에 관심있는, TDD에도 관심있는, 투자를 잘 하고 싶은 "프로그래머"입니다.
