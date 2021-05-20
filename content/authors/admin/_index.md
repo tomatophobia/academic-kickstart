@@ -35,9 +35,9 @@ education:
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
 #   form "mailto:your-email@example.com" or "/#contact" for contact widget.
 social:
-# - icon: envelope
-#   icon_pack: fas
-#   link: '/#contact'
+- icon: envelope
+  icon_pack: fas
+  link: "mailto:ys550499@gmail.com"
 # - icon: twitter
 #   icon_pack: fab
 #   link: https://twitter.com/GeorgeCushen
@@ -59,10 +59,10 @@ social:
 #   link: media/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ""
+email: "ys550499@gmail.com"
 
 # Highlight the author in author lists? (true/false)
 highlight_name: false
 ---
 
-함수형 프로그래밍을 좋아하는, 그 중 스칼라를 좋아하는, DDD에 관심있는, TDD에도 관심있는, 투자를 잘 하고 싶은 "프로그래머"입니다.
+함수형 프로그래밍을 좋아하는, 그 중에서도 스칼라를 좋아하는, DDD에 관심있는, TDD에도 관심있는, 투자를 잘 하고 싶은 "프로그래머"입니다.

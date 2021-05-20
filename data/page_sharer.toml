@@ -19,7 +19,7 @@
 
 [[buttons]]
   id = "email"
-  url = "mailto:?subject={title}&body={url}"
+  url = "mailto:ys550499@gmail.com"
   title = "Email"
   icon_pack = "fas"
   icon = "envelope"
