@@ -11,6 +11,7 @@ date: 2021-05-21T23:52:45+09:00
 lastmod: 2021-05-21T23:52:45+09:00
 featured: false
 draft: false
+toc: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -37,7 +38,7 @@ projects: []
 - 수면 아래에서 Aecor가 어떻게 작동하는지 설명
 - 거기다 실제로 작동하는 애플리케이션까지!
 
-## **Introduction**
+## Introduction
 
 Aecor는 2년 정도 전에 [Denis Mikhaylov](https://github.com/notxcain)([@notxcain](https://twitter.com/notxcain))이 전체 구조를 제작하였다. 나는 이 프로젝트를 초기부터 지켜보고 있었고, 최근에 Denis의 팀인  [Evotor](https://evotor.ru/)에 합류할 수 있는 기회를 얻었다. 이 곳에서는 이미 여러 Aecor 기반의 서비스가 실제로 운영되고 있었다.
 
@@ -51,7 +52,7 @@ Aecor는 언제나 Scala를 통해 순수 함수형 프로그래밍을 사용하
 
 이제 Aecor는 실제 세상에 조금씩 드러나고 있다. 이벤트 소싱이 적용된 실제로 작동하는 애플리케이션을 운영하는 팀 안에서 나 역시 매일 많은 배움을 얻고 있다. 지금이야말로 이 시리즈를 연재하기 가장 좋은 타이밍이라고 생각한다.
 
-## **What Aecor gives you**
+## What Aecor gives you
 
 이 시리즈는 Aecor가 개발자에게 부여하는 능력에 대해 이야기 할 것이므로 간단하게 언급하고 넘어가겠다.
 

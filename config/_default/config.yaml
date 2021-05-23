@@ -54,7 +54,7 @@ markup:
     codeFences: false
   tableOfContents:
     startLevel: 2
-    endLevel: 3
+    endLevel: 5
 imaging:
   resampleFilter: lanczos
   quality: 75

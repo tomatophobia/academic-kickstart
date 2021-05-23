@@ -11,6 +11,7 @@ date: 2021-05-22T00:38:38+09:00
 lastmod: 2021-05-22T00:38:38+09:00
 featured: false
 draft: true
+toc: true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
