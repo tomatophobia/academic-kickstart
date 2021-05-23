@@ -100,3 +100,7 @@ libraryDependencies ++= Seq(
 또한 [partial-unification](https://www.scala-lang.org/news/2.12.0/#partial-unification-for-type-constructor-inference) 플래그를 켜는 것을 잊지 말아야 한다.
 
 여기까지 Aecor 소개가 끝났다. [Part1](https://pavkin.ru/aecor-part-1)에서는 예약 시스템에 들어갈 행동을 정의해볼 것이다.
+
+---
+
+여기까지 Aecor 인트로였습니다. 번역은 계속 하고 있으나 내용도 어렵고 알맞은 한글을 찾기가 참 어렵다고 느낍니다. 읽어주셔서 감사합니다.

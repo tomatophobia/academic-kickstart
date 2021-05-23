@@ -1,6 +1,6 @@
 ---
 # Display name
-title: Youngseo Choi
+title: 최영서
 
 # Is this the primary user of the site?
 superuser: true
