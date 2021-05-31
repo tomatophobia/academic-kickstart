@@ -4,7 +4,7 @@
 title: "함수형 디자인 소개 [번역]"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala]
 categories: [Functional Programming]
 date: 2020-08-22T18:41:23+09:00

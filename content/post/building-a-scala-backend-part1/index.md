@@ -4,7 +4,7 @@
 title: "스칼라로 백엔드 서버 구축하기 1편"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, Backend]
 categories: [Functional Programming]
 date: 2021-05-23T23:48:19+09:00

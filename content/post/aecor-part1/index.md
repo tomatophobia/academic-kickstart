@@ -4,7 +4,7 @@
 title: "Aecor Part1 - Event Sourcing with Scala"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, Event Sourcing]
 categories: [Functional Programming]
 date: 2021-05-22T00:38:38+09:00

@@ -4,7 +4,7 @@
 title: "http4s 역사로 이해하기 - Scala 함수형 웹 프레임워크 1편"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, http4s, HTTP, Web, Framework]
 categories: [Functional Programming]
 date: 2021-05-27T00:17:49+09:00

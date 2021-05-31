@@ -4,7 +4,7 @@
 title: "Aecor Intro [번역] - Event Sourcing with Scala"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, Event Sourcing]
 categories: [Functional Programming]
 date: 2021-05-21T23:52:45+09:00

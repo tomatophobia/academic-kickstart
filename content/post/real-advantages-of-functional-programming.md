@@ -4,7 +4,7 @@
 title: "직접 사용하면서 느낀 함수형 프로그래밍의 장점"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming]
 categories: [Functional Programming]
 date: 2020-07-29T21:33:55+09:00

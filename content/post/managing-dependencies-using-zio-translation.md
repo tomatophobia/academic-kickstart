@@ -4,7 +4,7 @@
 title: "ZIO를 이용해 의존성 관리하기 [번역]"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [ZIO, Scala, Functional Programming, Dependency Injection]
 categories: [Functional Programming]
 date: 2020-08-27T22:07:42+09:00

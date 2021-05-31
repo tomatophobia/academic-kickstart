@@ -4,7 +4,7 @@
 title: "ZIO를 통한 부수효과가 있는 코드 관리 [번역]"
 subtitle: ""
 summary: ""
-authors: []
+authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, ZIO]
 categories: [Functional Programming]
 date: 2020-08-23T23:37:39+09:00
