@@ -18,7 +18,6 @@
     {{ else }}
       {{ $page.Date.Format site.Params.date_format }}
     {{ end }}
-    {{ $date }}
 </span>
   {{ end }}
   {{ if and (eq $is_list 1) (eq $page.Type "publication") }}
