@@ -1,7 +1,7 @@
 ---
 # Documentation: https://wowchemy.com/docs/managing-content/
 
-title: "Aecor Part1"
+title: "Aecor Part1 - Event Sourcing with Scala"
 subtitle: ""
 summary: ""
 authors: []

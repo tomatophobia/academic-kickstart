@@ -1,7 +1,7 @@
 ---
 # Documentation: https://wowchemy.com/docs/managing-content/
 
-title: "Aecor Intro [번역]"
+title: "Aecor Intro [번역] - Event Sourcing with Scala"
 subtitle: ""
 summary: ""
 authors: []
