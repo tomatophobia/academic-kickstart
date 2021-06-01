@@ -1,7 +1,7 @@
 ---
 # Documentation: https://wowchemy.com/docs/managing-content/
 
-title: "Aecor Part1 - Event Sourcing with Scala"
+title: "Aecor Part1 - Scala 이벤트 소싱하기!"
 subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
