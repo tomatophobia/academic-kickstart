@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
 tags: [Functional Programming]
-categories: [Functional Programming]
+categories: [Programming]
 date: 2020-07-29T21:33:55+09:00
 lastmod: 2020-07-29T21:33:55+09:00
 featured: false

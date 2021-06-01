@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
 tags: [Functional Programming, Scala]
-categories: [Functional Programming]
+categories: [Programming]
 date: 2020-08-22T18:41:23+09:00
 lastmod: 2020-08-22T18:41:23+09:00
 featured: false

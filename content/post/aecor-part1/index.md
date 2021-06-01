@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, Event Sourcing]
-categories: [Functional Programming]
+categories: [Programming]
 date: 2021-05-22T00:38:38+09:00
 lastmod: 2021-05-22T00:38:38+09:00
 featured: false

@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
 tags: [Functional Programming, Scala, http4s, HTTP, Web, Framework]
-categories: [Functional Programming]
+categories: [Programming]
 date: 2021-05-31T23:48:57+09:00
 lastmod: 2021-05-31T23:48:57+09:00
 featured: false

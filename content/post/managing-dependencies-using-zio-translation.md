@@ -6,7 +6,7 @@ subtitle: ""
 summary: ""
 authors: [Youngseo Choi]
 tags: [ZIO, Scala, Functional Programming, Dependency Injection]
-categories: [Functional Programming]
+categories: [Programming]
 date: 2020-08-27T22:07:42+09:00
 lastmod: 2020-08-27T22:07:42+09:00
 featured: false
