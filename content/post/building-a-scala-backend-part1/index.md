@@ -41,7 +41,7 @@ projects: []
 
 ### [ZIO](https://zio.dev)
 
-ZIO는 순수 함수형 프로그래밍을 기반으로 비동기(async), 동시성(concurrent) 프로그래밍에 사용하는 라이브러리입니다. ZIO를 정확하고 자세히 설명하기에는 제 식견이 부족하여 어려울 것 같습니다. 다만 제 생각에 가장 중요한 부분은 부수효과(side effect)를 순수한 데이터 타입으로 표현한다는 점입니다. 이를 [함수형 효과(functional effect)](https://scalac.io/blog/introduction-to-programming-with-zio-functional-effects/)라고 합니다. 이에 대해서는 제 글 중 [함수형 디자인 소개](https://easywritten.org/post/an-introduction-to-functional-design-translation/)에서도 소개되어 있으니 참고하시기 바랍니다.
+ZIO는 순수 함수형 프로그래밍을 기반으로 비동기(async), 동시성(concurrent) 프로그래밍에 사용하는 라이브러리입니다. ZIO를 정확하고 자세히 설명하기에는 제 식견이 부족하여 어려울 것 같습니다. 다만 제 생각에 가장 중요한 부분은 부수효과(side effect)를 순수한 데이터 타입으로 표현한다는 점입니다. 이를 [함수형 효과(functional effect)](https://scalac.io/blog/introduction-to-programming-with-zio-functional-effects/)라고 합니다. 이에 대해서는 제 글 중 [함수형 디자인 소개](/post/an-introduction-to-functional-design-translation/)에서도 소개되어 있으니 참고하시기 바랍니다.
 
 현재 제가 사용하는 라이브러리들 중 가장 핵심적인 라이브러리가 될 것으로 예상됩니다. 현재 스칼라 라이브러리들 중 인기와 주목도가 매우 높으며 함수형 프로그래밍에 관해서 이론적인 배경이 많지 않아도 쉽게 접근할 수 있도록 도와주어 상당히 유용하게 사용하고 있습니다.
 

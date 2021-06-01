@@ -139,7 +139,7 @@ HTTP 어플리케이션 실행 도중 특별한 작업을 실행 과정 중간�
 
 갑작스럽게 제목이 조금 어려워졌습니다. 괜찮습니다. 내용은 더 어렵습니다. ㅎ
 
-다형성 효과(polymorphic effect)에 대해 잠깐 짚고 넘어가면, 다음 코드에서 `F[_]`가 그 역할을 합니다. 간단히 응답을 감싸는 컨테이너라고 생각하면 좋을 것 같습니다. 함수형 효과(functional effect)에 관해서 [제 글](https://easywritten.org/post/an-introduction-to-functional-design-translation/)을 참고하시는 것도 약간이나마 도움이 되실 수 있을 것 같습니다.
+다형성 효과(polymorphic effect)에 대해 잠깐 짚고 넘어가면, 다음 코드에서 `F[_]`가 그 역할을 합니다. 간단히 응답을 감싸는 컨테이너라고 생각하면 좋을 것 같습니다. 함수형 효과(functional effect)에 관해서 [제 글](/post/an-introduction-to-functional-design-translation/)을 참고하시는 것도 약간이나마 도움이 되실 수 있을 것 같습니다.
 
 먼저 HTTP는 요청을 받고 어떤 효과가 감싼 응답을 반환하는 함수이고, HTTP 어플리케이션은 `Future` 효과 내부에서 발생하는 HTTP 입니다. 그리고 HTTP 라우터는 `Option[Future[_]]` 내부에서 발생하는 HTTP로 볼 수 있습니다. 코드의 난이도가 갑자기 상승하였지만 `Kleisli[F[_], A, B]`를 `A => F[B]`라고 생각하고 천천히 하나씩 뜯어보면 아주 어렵지는 않습니다.
 

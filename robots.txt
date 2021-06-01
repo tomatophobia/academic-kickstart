@@ -3,4 +3,4 @@ Allow: /
 User-agent: BadBot
 Disallow: /
 
-Sitemap: https://easywritten.org/sitemap.xml
+Sitemap: https://easywritten.com/sitemap.xml
