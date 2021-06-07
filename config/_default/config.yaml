@@ -34,6 +34,10 @@ summaryLength: 30
 paginate: 10
 enableEmoji: true
 enableRobotsTXT: true
+sitemap:
+  changefreq: weekly
+  filename: sitemap.xml
+  priority: 0.5
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 permalinks:
